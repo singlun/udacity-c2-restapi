@@ -4,9 +4,10 @@ const AWS = require("aws-sdk");
 const config_1 = require("./config/config");
 const c = config_1.config.dev;
 //Configure AWS
-//TODO IF ENV IS DEV
-var credentials = new AWS.SharedIniFileCredentials({ profile: 'default' });
-AWS.config.credentials = credentials;
+if (c.aws_profile != "DEPLOYED") {
+    var credentials = new AWS.SharedIniFileCredentials({ profile: 'default' });
+    AWS.config.credentials = credentials;
+}
 exports.s3 = new AWS.S3({
     signatureVersion: 'v4',
     region: c.aws_reigion,
@@ -18,15 +19,20 @@ exports.s3 = new AWS.S3({
  * @Returns:
  *    a url as a string
  */
+/*export function getGetSignedUrl( key: string ): string{
+
+  const signedUrlExpireSeconds = 60 * 5
+
+    const url = s3.getSignedUrl('getObject', {
+        Bucket: c.aws_media_bucket,
+        Key: key,
+        Expires: signedUrlExpireSeconds
+      });
+
+    return url;
+}*/
 function getGetSignedUrl(key) {
-    return 'https://s3-us-west-1.amazonaws.com/udacity-content/images/icon-error.svg';
-    // const signedUrlExpireSeconds = 60 * 5
-    // const url = s3.getSignedUrl('getObject', {
-    //     Bucket: feedUrlBucket,
-    //     Key: key,
-    //     Expires: signedUrlExpireSeconds
-    //   });
-    // return url;
+    return 'https://udagram-singlun-dev.s3.us-east-2.amazonaws.com/cat.jfif';
 }
 exports.getGetSignedUrl = getGetSignedUrl;
 /* getPutSignedUrl generates an aws signed url to put an item
@@ -36,14 +42,13 @@ exports.getGetSignedUrl = getGetSignedUrl;
  *    a url as a string
  */
 function getPutSignedUrl(key) {
-    return 'wompwomp';
-    // const signedUrlExpireSeconds = 60 * 5
-    // const url = s3.getSignedUrl('putObject', {
-    //   Bucket: feedUrlBucket,
-    //   Key: key,
-    //   Expires: signedUrlExpireSeconds
-    // });
-    // return url;
+    const signedUrlExpireSeconds = 60 * 5;
+    const url = exports.s3.getSignedUrl('putObject', {
+        Bucket: c.aws_media_bucket,
+        Key: key,
+        Expires: signedUrlExpireSeconds
+    });
+    return url;
 }
 exports.getPutSignedUrl = getPutSignedUrl;
 //# sourceMappingURL=aws.js.map

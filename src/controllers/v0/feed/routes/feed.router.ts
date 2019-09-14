@@ -24,23 +24,40 @@ router.get('/:id',
     res.send(item);
 });
 
-// update a specific resource
-router.patch('/:id', 
-    requireAuth, 
-    async (req: Request, res: Response) => {
-        //@TODO try it yourself
-        res.send(500).send("not implemented")
-});
-
 
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', 
     requireAuth, 
     async (req: Request, res: Response) => {
     let { fileName } = req.params;
+
     const url = AWS.getPutSignedUrl(fileName);
     res.status(201).send({url: url});
 });
+
+// update a specific resource
+router.patch('/:id', 
+    requireAuth, 
+    async (req: Request, res: Response) => {
+
+    //@TODO try it yourself
+    let { id } = req.params;    
+    const caption = req.body.caption;
+    let item = await FeedItem.findByPk(id);      
+    
+    // check Caption is valid
+    if (!caption) {
+        return res.status(400)
+        .send(`Caption is required or malformed`); 
+    }          
+
+    item.caption = caption;
+    item.updatedAt =  new Date();
+    const saved_item = await item.save();
+    res.send(200);
+});
+
+
 
 // Post meta data and the filename after a file is uploaded 
 // NOTE the file name is they key name in the s3 bucket.
@@ -48,17 +65,22 @@ router.get('/signed-url/:fileName',
 router.post('/', 
     requireAuth, 
     async (req: Request, res: Response) => {
+
     const caption = req.body.caption;
     const fileName = req.body.url;
 
     // check Caption is valid
     if (!caption) {
-        return res.status(400).send({ message: 'Caption is required or malformed' });
+        //throw new Error('Caption is required or malformed');
+        return res.status(400)
+        .send(`Caption is required or malformed`);        
     }
 
     // check Filename is valid
     if (!fileName) {
-        return res.status(400).send({ message: 'File url is required' });
+        //throw new Error('File url is required');
+        return res.status(400)
+        .send(`File url is required`);                        
     }
 
     const item = await new FeedItem({
@@ -69,7 +91,8 @@ router.post('/',
     const saved_item = await item.save();
 
     saved_item.url = AWS.getGetSignedUrl(saved_item.url);
-    res.status(201).send(saved_item);
+    res.status(201).send(saved_item);            
+
 });
 
 export const FeedRouter: Router = router;
