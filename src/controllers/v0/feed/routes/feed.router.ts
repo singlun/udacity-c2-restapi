@@ -24,7 +24,6 @@ router.get('/:id',
     res.send(item);
 });
 
-
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', 
     requireAuth, 
@@ -40,7 +39,6 @@ router.patch('/:id',
     requireAuth, 
     async (req: Request, res: Response) => {
 
-    //@TODO try it yourself
     let { id } = req.params;    
     const caption = req.body.caption;
     let item = await FeedItem.findByPk(id);      

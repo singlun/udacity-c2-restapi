@@ -18,10 +18,12 @@ let FeedItem = class FeedItem extends sequelize_typescript_1.Model {
     }
 };
 __decorate([
+    sequelize_typescript_1.AllowNull(false),
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], FeedItem.prototype, "caption", void 0);
 __decorate([
+    sequelize_typescript_1.AllowNull(false),
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], FeedItem.prototype, "url", void 0);

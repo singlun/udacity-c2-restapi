@@ -8,6 +8,8 @@ const router: Router = Router();
 router.use('/auth', AuthRouter);
 
 router.get('/', async (req: Request, res: Response) => {
+    const items = await User.findAndCountAll({order: [['email', 'DESC']]});
+    res.send(items);    
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
@@ -15,5 +17,6 @@ router.get('/:id', async (req: Request, res: Response) => {
     const item = await User.findByPk(id);
     res.send(item);
 });
+
 
 export const UserRouter: Router = router;

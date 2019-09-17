@@ -4,10 +4,10 @@ import { config } from './config/config';
 const c = config.dev;
 
 //Configure AWS
-if (c.aws_profile != "DEPLOYED") {
+//if (c.aws_profile != "DEPLOYED") {
   var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
   AWS.config.credentials = credentials;
-}
+//}
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
@@ -22,7 +22,7 @@ export const s3 = new AWS.S3({
  * @Returns:
  *    a url as a string
  */
-/*export function getGetSignedUrl( key: string ): string{
+export function getGetSignedUrl( key: string ): string{
 
   const signedUrlExpireSeconds = 60 * 5
 
@@ -33,14 +33,14 @@ export const s3 = new AWS.S3({
       });
 
     return url;
-}*/
+}
 
 
-export function getGetSignedUrl( key: string ): string{
+/*export function getGetSignedUrl( key: string ): string{
 
     return 'https://udagram-singlun-dev.s3.us-east-2.amazonaws.com/cat.jfif';
     
-}
+}*/
 
 
 

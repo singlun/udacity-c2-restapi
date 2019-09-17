@@ -1,13 +1,14 @@
-import {Table, Column, Model, HasMany, PrimaryKey, CreatedAt, UpdatedAt, ForeignKey} from 'sequelize-typescript';
-import { User } from '../../users/models/User';
+import {Table, Column, Model, HasMany, PrimaryKey, CreatedAt, UpdatedAt, ForeignKey,  AllowNull, AutoIncrement} from 'sequelize-typescript';
 
 @Table
 export class FeedItem extends Model<FeedItem> {
-  @Column
-  public caption!: string;
+  @AllowNull(false)
+  @Column  
+  public caption: string;
 
-  @Column
-  public url!: string;
+  @AllowNull(false)
+  @Column  
+  public url: string;
 
   @Column
   @CreatedAt
