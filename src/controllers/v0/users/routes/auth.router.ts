@@ -23,11 +23,7 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 }
 
 function generateJWT(user: User): string {
-<<<<<<< HEAD
-    return jwt.sign(user.short(), config.jwt.secret)
-=======
     return jwt.sign(user.short(), c.config.jwt.secret)
->>>>>>> master
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -44,11 +40,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     
      const token = token_bearer[1];
 
-<<<<<<< HEAD
-     return jwt.verify(token, "helloworld", (err, decoded) => {
-=======
      return jwt.verify(token, c.config.jwt.secret, (err, decoded) => {
->>>>>>> master
        if (err) {
          return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
        }
