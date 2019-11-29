@@ -15,26 +15,12 @@ You'll need to create a new node server. Open a new terminal within the project 
 3. Install typescript dependencies: `npm i ts-node-dev tslint typescript  @types/bluebird @types/express @types/node --save-dev`
 4. Look at the `package.json` file from the RestAPI repo and copy the `scripts` block into the auto-generated `package.json` in this project. This will allow you to use shorthand commands like `npm run dev`
 
-### Add an endpoint to handle POST /imagetoprocess requests
-It should accept two POST parameter:
->    image_url: string - a public URL of a valid image file
-
->    upload_image_signedUrl: string (OPTIONAL) - a URL which will allow a PUT request with the processed image
-    
-It should respond with 422 unprocessable if either POST parameters are invalid.
-
-It should require a token in the Auth Header or respond with 401 unauthorized.
-
-It should be versioned.
-
-> The matching token should be saved as an environment variable
-    
-> (TIP we broke this out into its own auth.router before, but you can access headers as part of the req.headers within your endpoint block)
-
-It should respond with the image as the body if upload_image_signedUrl is included in the request.
-
-It should respond with a success message if upload_image_signedUrl is NOT included in the request.
-
+### Setup Elastic BeanStalk cli
+To install Elastic BeanStalk first you need to install python:
+1. To install python for windows go to the website https://www.python.org/downloads/.
+2. After python is installed. You can install Elastic BeanStalk by typing:
+   pip install awsebcli --upgrade --user
+3. Type eb --version to verify that elastic BeanStalk is installed.
 
 ### Refactor your RestApi server
 #### Add a request to the image-filter server within the RestAPI POST feed endpoint
