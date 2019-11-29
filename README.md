@@ -19,32 +19,12 @@ You'll need to create a new node server. Open a new terminal within the project 
 To install Elastic BeanStalk first you need to install python:
 1. To install python for windows go to the website https://www.python.org/downloads/.
 2. After python is installed. You can install Elastic BeanStalk by typing:
-   pip install awsebcli --upgrade --user
-3. Type eb --version to verify that elastic BeanStalk is installed.
-
-### Refactor your RestApi server
-#### Add a request to the image-filter server within the RestAPI POST feed endpoint
-
-It should create new SignedURLs required for the imagetoprocess POST Request body.
-
-It should include a POST request to the new server (TIP keep the server address and token as environment variables).
-
-It should overwrite the image in the bucket with the filtered image (in other words, it will have the same filename in S3).
-
+   `pip install awsebcli --upgrade --user`
+3. Type `eb --version` to verify that elastic BeanStalk is installed.
 
 ### Deploying your system!
-Follow the process described in the course to `eb init` a new application and `eb create` a new environment to deploy your image-filter service!
+1. Follow the process  `eb init` a new application
+2. `eb create` a new environment to deploy your image-filter service!
+3. `eb deploy` to deploy the application.
 
-
-## Stand Out
-#### Postman Integration Tests
-Try writing a postman collection to test your endpoint. Be sure to cover:
-> POST requests with and without tokens
-> POST requests with valid and invalid parameters
-
-#### Refactor Data Models
-Try adding another column to your tables to save a separate key for your filtered image. Remember, you'll have to rename the file before adding it to S3!
-
-#### (ADVANCED) Refactor Data Models
-Try adding a second OpenCV filter script and add an additional parameter to select which filter to use as a POST parameter
 
