@@ -3,10 +3,9 @@
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos.
 
 The project is split into three parts:
-1. [The Simple Frontend]
-A basic Ionic client web application which consumes the RestAPI Backend. 
-2. [The RestAPI User Backend] a Node-Express server which can be deployed to a cloud service.
-3. [The RestAPI Feed Backend] a Node-Express server which can be deployed to a 
+1. [The Simple Frontend] A basic Ionic client web application which consumes the RestAPI Backend. 
+2. [The RestAPI User Backend] A Node-Express server which handles User Request and submits to the AWS postgresql DB.
+3. [The RestAPI Feed Backend] A Node-Express server which handles Feed Request and upload images to the AWS S3 bucket. 
 
 ## Tasks
 ### Setup Node Environment
@@ -15,9 +14,6 @@ You'll need to create a new node server. Open a new terminal within the project 
 2. Install express: `npm i express --save`
 3. Install typescript dependencies: `npm i ts-node-dev tslint typescript  @types/bluebird @types/express @types/node --save-dev`
 4. Look at the `package.json` file from the RestAPI repo and copy the `scripts` block into the auto-generated `package.json` in this project. This will allow you to use shorthand commands like `npm run dev`
-
-### Create a new server.ts file
-Use our basic server as an example to set up this file. For this project, it's ok to keep all of your business logic in the one server.ts file, but you can try to use feature directories and app.use routing if you're up for it. Use the RestAPI structure to guide you.
 
 ### Add an endpoint to handle POST /imagetoprocess requests
 It should accept two POST parameter:
